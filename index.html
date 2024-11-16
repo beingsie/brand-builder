@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Brand Builder Guide</title>
+  </head>
+  <body
+    class="bg-gray-50 text-gray-900 min-h-screen flex items-center justify-center p-4"
+  >
+    <div class="max-w-3xl w-full mx-auto bg-white rounded-lg shadow-sm">
+      <div
+        class="px-4 p-2 flex items-center justify-between border-b border-gray-200"
+      >
+        <h1 class="text-2xl font-bold text-gray-800" id="stepTitle">
+          Discovery — Who Are You?
+        </h1>
+        <span class="text-sm text-gray-500" id="stepIndicator">Step 1/7</span>
+      </div>
+      <div class="p-6">
+        <div id="questionContainer" class="mb-6">
+          <h3 class="text-xl mb-2 text-gray-800" id="currentQuestion">
+            What's your brand's superpower?
+          </h3>
+          <p class="text-sm text-gray-500 mb-4" id="currentHint">
+            What makes your brand special and unique?
+          </p>
+          <textarea
+            id="answerInput"
+            class="w-full p-2 border border-gray-300 rounded-md min-h-[120px] text-gray-900 resize-y focus:outline-none focus:ring-2 focus:ring-blue-500"
+          ></textarea>
+          <div class="flex items-center justify-start gap-2 mt-6">
+            <button
+              id="prevBtn"
+              class="px-4 py-2 rounded-full font-medium text-gray-600 border border-gray-300 bg-white disabled:opacity-50"
+            >
+              ← Previous
+            </button>
+            <button
+              id="nextBtn"
+              class="px-4 py-2 rounded-full font-medium text-white bg-blue-500 hover:bg-blue-600"
+            >
+              Next →
+            </button>
+          </div>
+        </div>
+        <div id="summary" class="hidden">
+          <!-- Summary content will be dynamically inserted here -->
+        </div>
+      </div>
+    </div>
+
+    <script src="js/form.js"></script>
+  </body>
+</html>
