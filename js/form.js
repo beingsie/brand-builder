@@ -92,9 +92,14 @@ function showSummary() {
   });
 
   summaryHTML += `
-                <button id="editBtn" class="block w-fit m-auto btn btn-outline px-4 py-2 mt-4 rounded-full font-medium text-gray-600 border border-gray-300 bg-white hover:bg-gray-50">
-                    Edit Responses
-                </button>
+                <div class="flex flex-row items-center justify-center gap-2">
+                  <button id="editBtn" class="block w-fit btn btn-outline px-4 py-2 mt-4 rounded-full font-medium text-gray-600 border border-gray-300 bg-white hover:bg-gray-50">
+                    ← Edit Responses
+                  </button>
+                  <button id="downloadPDFBtn" class="block w-fit btn btn-outline px-4 py-2 mt-4 rounded-full font-medium text-white border border-gray-800 bg-gray-800 hover:bg-gray-700">
+                      ↓ Download PDF
+                  </button>
+                </div>
             `;
 
   elements.summary.innerHTML = summaryHTML;
@@ -103,6 +108,37 @@ function showSummary() {
     elements.questionContainer.classList.remove('hidden');
     elements.summary.classList.remove('active');
     updateUI();
+  });
+
+  document.getElementById('downloadPDFBtn').addEventListener('click', () => {
+    const { jsPDF } = window.jspdf; // Access the jsPDF class from the library
+    const doc = new jsPDF();
+
+    doc.setFont("helvetica");  // Set font to Helvetica
+    doc.setFontSize(12);  // Set font size
+
+    let yOffset = 10;  // Starting Y position for text
+    const lineHeight = 10;  // Line height
+
+    // Loop through each step and each question to generate the PDF content
+    steps.forEach(step => {
+      doc.text(step, 10, yOffset);
+      yOffset += lineHeight;
+
+      questions[step].forEach(q => {
+        const answer = answers[q.id] || 'Not answered';
+        doc.text(`› ${q.question}`, 10, yOffset);
+        yOffset += lineHeight;
+
+        doc.text(answer, 10, yOffset);
+        yOffset += lineHeight;
+      });
+
+      yOffset += lineHeight; // Add extra space after each step
+    });
+
+    // Save the generated PDF
+    doc.save('brand_summary.pdf');
   });
 }
 
