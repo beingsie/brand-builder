@@ -1,38 +1,49 @@
 const questions = {
-  'Discovery — Who Are You?': [
-    { id: 'superpower', question: "What's your brand's superpower?", hint: "What makes your brand special and unique?" },
-    { id: 'existence', question: "Why does your brand exist?", hint: "What problem does it solve or what joy does it bring?" },
-    { id: 'vibe', question: "What's your brand's vibe?", hint: "Is it fun, serious, creative, bold?" }
+  'Discovery: Who Are You?': [
+    { id: 'uniqueQualities', question: "What unique qualities set your brand apart from competitors?", hint: "What strengths, talents, or expertise does your brand possess that others don’t?" },
+    { id: 'brandExistence', question: "Why does your brand exist, beyond making money?", hint: "What’s the deeper purpose or mission that drives your brand?" },
+    { id: 'brandSummary', question: "How would you describe your brand in one sentence?", hint: "Summarize your brand’s purpose, values, and personality in a concise statement." },
+    { id: 'brandPersonality', question: "If your brand were a person, how would you describe their personality?", hint: "Is your brand playful, sophisticated, bold, or empathetic?" }
   ],
-  'Definition — What\'s Your Story?': [
-    { id: 'mission', question: "What's your brand's mission?", hint: "What's your brand trying to do in the world?" },
-    { id: 'feelings', question: "How do you want people to feel when they interact with your brand?", hint: "Excited, calm, inspired?" },
-    { id: 'values', question: "What are your brand's values?", hint: "What does it believe in? Honesty, kindness, adventure?" }
+  'Definition: What\'s Your Story?': [
+    { id: 'originStory', question: "What is the 'why' behind your brand’s creation?", hint: "Share the origin story of how and why your brand came to be." },
+    { id: 'transformationPromise', question: "What transformation does your brand promise?", hint: "What’s the before-and-after experience you offer your audience?" },
+    { id: 'emotionalResponse', question: "What emotional response do you want your audience to have when they engage with your brand?", hint: "Should they feel empowered, excited, comforted, or inspired?" },
+    { id: 'brandValues', question: "What values or principles guide your brand?", hint: "What beliefs shape how your brand behaves, communicates, and creates?" }
   ],
-  'Audience and Persona Development': [
-    { id: 'dreamCustomer', question: "Who's your dream customer?", hint: "Describe them—are they young, old, playful, serious?" },
-    { id: 'problemSolved', question: "What problem does your brand help them solve?", hint: "Are you helping them feel happy, organized, creative?" },
-    { id: 'hangouts', question: "Where do they hang out?", hint: "Are they on Instagram, TikTok, in coffee shops?" }
+  'Audience & Persona Development': [
+    { id: 'biggestChallenge', question: "What is your audience’s biggest challenge, need, or desire?", hint: "What emotional or practical problems do they face?" },
+    { id: 'dreamCustomer', question: "What does your dream customer look like?", hint: "Define their age, lifestyle, values, preferences, and behaviors." },
+    { id: 'customerHangouts', question: "Where does your audience spend time, and how do they consume content?", hint: "Identify platforms, communities, or habits they frequent." },
+    { id: 'desiredConnection', question: "How does your audience want to feel about your brand?", hint: "What emotional connection do you want to foster—trust, excitement, or belonging?" },
+    { id: 'audienceFavorites', question: "What other brands does your audience love?", hint: "What can you learn from their preferences to shape your own strategy?" }
   ],
-  'Brand Messaging — What\'s Your Message?': [
-    { id: 'elevatorPitch', question: "What catchy sentence sums up your brand?", hint: "Think of your elevator pitch!" },
-    { id: 'phrases', question: "What words or phrases make your brand stand out?", hint: "Is it fun, clever, kind?" },
-    { id: 'tone', question: "How does your brand talk?", hint: "Friendly, professional, funny?" }
+  'Brand Messaging: What\'s Your Message?': [
+    { id: 'uniqueValueProposition', question: "What is your brand’s unique value proposition (UVP)?", hint: "What specific benefit does your brand offer that competitors don’t?" },
+    { id: 'brandStory', question: "What story does your brand need to tell?", hint: "What narrative captures your mission, audience, and impact?" },
+    { id: 'brandVoice', question: "What is the tone and voice of your brand?", hint: "Should your messaging sound professional, conversational, edgy, or nurturing?" },
+    { id: 'keyPhrases', question: "What phrases or language should always appear in your messaging?", hint: "Develop a set of key phrases that communicate your values and personality." },
+    { id: 'painPoints', question: "What pain points or desires does your messaging address?", hint: "Craft statements that empathize with your audience’s needs while offering solutions." }
   ],
-  'Brand Identity — What Do You Look Like?': [
-    { id: 'colors', question: "What colors represent your brand?", hint: "Bright? Bold? Calm?" },
-    { id: 'image', question: "What shape or image can people easily recognize as your brand?", hint: "Logo or mascot?" },
-    { id: 'pictures', question: "How does your brand look in pictures?", hint: "Bright and colorful, simple and sleek?" }
+  'Brand Identity: What Do You Look Like?': [
+    { id: 'visualFeelings', question: "What feelings should your brand’s visuals evoke?", hint: "Should they feel energetic, calming, elegant, or innovative?" },
+    { id: 'brandColors', question: "What colors best represent your brand’s personality and values?", hint: "Consider the psychological impact of each color and its alignment with your audience." },
+    { id: 'typographyStyle', question: "What typography style fits your brand’s tone?", hint: "Do you need sleek and modern fonts, playful and informal ones, or classic and timeless typography?" },
+    { id: 'graphicElements', question: "What visuals or graphic elements reflect your brand’s story?", hint: "Think about imagery, patterns, or shapes that represent your brand’s journey, mission, or personality." },
+    { id: 'visualHierarchy', question: "What is the hierarchy of your brand’s visual elements?", hint: "Which elements (e.g., logo, tagline, colors) should stand out the most, and how do they guide focus?" },
+    { id: 'visualConsistency', question: "How will your visual identity remain cohesive across different mediums?", hint: "Develop rules for consistent application of logos, colors, and typography in print, digital, and packaging." }
   ],
-  'Implementation and Activation': [
-    { id: 'location', question: "Where can people find your brand?", hint: "On a website, social media, or a store?" },
-    { id: 'firstMove', question: "What's your first big move to tell the world about your brand?", hint: "Launch event, social media post, or a fun giveaway?" },
-    { id: 'excitement', question: "How will you keep people excited about your brand?", hint: "Regular updates, cool offers, or exciting stories?" }
+  'Implementation & Activation': [
+    { id: 'firstImpression', question: "How will your brand make its first impression?", hint: "What platforms, campaigns, or collaborations will you use to launch and connect with your audience?" },
+    { id: 'customerJourney', question: "What is your brand’s customer journey?", hint: "Map out how your audience will discover, interact with, and stay engaged with your brand." },
+    { id: 'contentStrategies', question: "What content or marketing strategies will best activate your brand?", hint: "Should you focus on storytelling, influencer partnerships, social campaigns, or live events?" },
+    { id: 'brandConsistencyTools', question: "What tools or systems will you use to ensure your brand stays consistent?", hint: "Do you need a brand style guide, templates, or automated scheduling tools?" }
   ],
-  'Measurement and Optimization': [
-    { id: 'success', question: "How will you know if people love your brand?", hint: "Are they sharing, buying, telling their friends?" },
-    { id: 'improvements', question: "What can you do better?", hint: "Do you need more fun colors, different products, or better stories?" },
-    { id: 'progress', question: "How can you keep improving?", hint: "Ask your customers what they think, track your growth!" }
+  'Measurement & Optimization': [
+    { id: 'successMetrics', question: "What metrics will you use to measure brand awareness and loyalty?", hint: "Track website traffic, social engagement, conversions, or repeat purchases." },
+    { id: 'feedbackLoops', question: "What feedback loops can you create to improve your brand?", hint: "How will you gather customer feedback and use it to refine your branding?" },
+    { id: 'brandReview', question: "How often will you revisit your brand strategy?", hint: "Set a schedule for reviewing your brand’s relevance and making necessary updates." },
+    { id: 'futureEvolution', question: "What areas of your branding process are most likely to evolve?", hint: "Identify which elements (e.g., messaging, visuals, channels) might need adjustments as your brand grows." }
   ]
 };
 
