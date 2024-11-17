@@ -60,6 +60,7 @@ const elements = {
   prevBtn: document.getElementById('prevBtn'),
   nextBtn: document.getElementById('nextBtn'),
   stepIndicator: document.getElementById('stepIndicator'),
+  questionIndicator: document.getElementById('questionIndicator'), // Added this line
   questionContainer: document.getElementById('questionContainer'),
   summary: document.getElementById('summary')
 };
@@ -68,17 +69,20 @@ function updateUI() {
   const step = steps[currentStep];
   const question = questions[step][currentQuestion];
 
+  // Update step and question indicators
+  elements.stepIndicator.textContent = `Step ${currentStep + 1}/${steps.length}`;
+  elements.questionIndicator.textContent = `Question ${currentQuestion + 1}/${questions[step].length}`;
+
+  // Update title and question content
   elements.stepTitle.textContent = step;
   elements.currentQuestion.textContent = question.question;
   elements.currentHint.textContent = question.hint;
   elements.answerInput.value = answers[question.id] || '';
-  elements.stepIndicator.textContent = `Step ${currentStep + 1}/${steps.length}`;
 
+  // Update navigation buttons
   elements.prevBtn.disabled = currentStep === 0 && currentQuestion === 0;
-
   const isLastQuestion = currentStep === steps.length - 1 &&
     currentQuestion === questions[step].length - 1;
-
   elements.nextBtn.textContent = isLastQuestion ? 'Finish ✓' : 'Next →';
 }
 
