@@ -134,17 +134,26 @@ function showSummary() {
 
     let yOffset = 10;  // Starting Y position for text
     const lineHeight = 10;  // Line height
+    const pageHeight = doc.internal.pageSize.height; // Height of the page
+    const marginBottom = 10; // Space to leave at the bottom of the page
 
     // Loop through each step and each question to generate the PDF content
     steps.forEach(step => {
+      if (yOffset + lineHeight > pageHeight - marginBottom) {
+        doc.addPage(); // Add a new page if the current one is full
+        yOffset = 10; // Reset Y position to the top of the new page
+      }
       doc.text(step, 10, yOffset);
       yOffset += lineHeight;
 
       questions[step].forEach(q => {
+        if (yOffset + lineHeight * 2 > pageHeight - marginBottom) {
+          doc.addPage(); // Add a new page if the current one is full
+          yOffset = 10; // Reset Y position
+        }
         const answer = answers[q.id] || 'Not answered';
         doc.text(`› ${q.question}`, 10, yOffset);
         yOffset += lineHeight;
-
         doc.text(answer, 10, yOffset);
         yOffset += lineHeight;
       });
