@@ -47,10 +47,12 @@ const questions = {
   ]
 };
 
+// Default to complex questions initially
+let currentQuestionSet = questions;
 let currentStep = 0;
 let currentQuestion = 0;
 const answers = {};
-const steps = Object.keys(questions);
+let steps = Object.keys(currentQuestionSet);
 
 const elements = {
   stepTitle: document.getElementById('stepTitle'),
@@ -60,20 +62,47 @@ const elements = {
   prevBtn: document.getElementById('prevBtn'),
   nextBtn: document.getElementById('nextBtn'),
   stepIndicator: document.getElementById('stepIndicator'),
-  questionIndicator: document.getElementById('questionIndicator'), // Added this line
+  questionIndicator: document.getElementById('questionIndicator'),
   questionContainer: document.getElementById('questionContainer'),
-  summary: document.getElementById('summary')
+  summary: document.getElementById('summary'),
+  complexMode: document.getElementById('complexMode'), // For mode switching
+  simplifiedMode: document.getElementById('simplifiedMode'), // For mode switching
 };
 
+// Simplified Questions Array
+const simplifiedQuestions = {
+  'Discovery: Who Are You?': [
+    { id: 'uniqueValue', question: "What makes your brand unique?", hint: "What sets you apart from others?" },
+    { id: 'brandPurpose', question: "Why does your brand exist?", hint: "What need or purpose does it fulfill?" },
+  ],
+  'Brand Identity: What Do You Look Like?': [
+    { id: 'visualStyle', question: "What should your brand’s visuals communicate?", hint: "Think about bold, elegant, or creative styles." },
+  ],
+};
+
+function resetProcess(newQuestionSet) {
+  currentQuestionSet = newQuestionSet; // Update the question set
+  steps = Object.keys(currentQuestionSet); // Update the steps
+  currentStep = 0; // Reset to the first step
+  currentQuestion = 0; // Reset to the first question
+  for (const key in answers) delete answers[key]; // Clear previous answers
+
+  // Update UI immediately to reflect the mode switch
+  elements.questionContainer.classList.remove('hidden');
+  elements.summary.classList.remove('active');
+  updateUI();
+}
+
+// Function to Update the UI
 function updateUI() {
   const step = steps[currentStep];
-  const question = questions[step][currentQuestion];
+  const question = currentQuestionSet[step][currentQuestion];
 
   // Update step and question indicators
   elements.stepIndicator.textContent = `Step ${currentStep + 1}/${steps.length}`;
-  elements.questionIndicator.textContent = `Question ${currentQuestion + 1}/${questions[step].length}`;
+  elements.questionIndicator.textContent = `Question ${currentQuestion + 1}/${currentQuestionSet[step].length}`;
 
-  // Update title and question content
+  // Update step title, question text, and input field
   elements.stepTitle.textContent = step;
   elements.currentQuestion.textContent = question.question;
   elements.currentHint.textContent = question.hint;
@@ -82,10 +111,11 @@ function updateUI() {
   // Update navigation buttons
   elements.prevBtn.disabled = currentStep === 0 && currentQuestion === 0;
   const isLastQuestion = currentStep === steps.length - 1 &&
-    currentQuestion === questions[step].length - 1;
+    currentQuestion === currentQuestionSet[step].length - 1;
   elements.nextBtn.textContent = isLastQuestion ? 'Finish ✓' : 'Next →';
 }
 
+// Function to Show the Summary
 function showSummary() {
   elements.questionContainer.classList.add('hidden');
   elements.summary.classList.add('active');
@@ -94,62 +124,66 @@ function showSummary() {
   let summaryHTML = '';
   steps.forEach(step => {
     summaryHTML += `
-                    <div class="px-2 py-6 border-b border-gray-300">
-                        <h3 class="text-xl font-semibold text-gray-800">${step}</h3>
-                        ${questions[step].map(q => `
-                            <div class="p-2">
-                                <p class="font-semibold">› ${q.question}</p>
-                                <p class="summary-answer">${answers[q.id] || 'Not answered'}</p>
-                            </div>
-                        `).join('')}
-                    </div>
-                `;
+      <div class="px-2 py-6 border-b border-gray-300">
+        <h3 class="text-xl font-semibold text-gray-800">${step}</h3>
+        ${currentQuestionSet[step].map(q => `
+          <div class="p-2">
+            <p class="font-semibold">› ${q.question}</p>
+            <p class="summary-answer">${answers[q.id] || 'Not answered'}</p>
+          </div>
+        `).join('')}
+      </div>
+    `;
   });
 
   summaryHTML += `
-                <div class="flex flex-row items-center justify-center gap-2">
-                  <button id="editBtn" class="block w-fit btn btn-outline px-4 py-2 mt-4 rounded-full font-medium text-gray-600 border border-gray-300 bg-white hover:bg-gray-50">
-                    ← Edit Responses
-                  </button>
-                  <button id="downloadPDFBtn" class="block w-fit btn btn-outline px-4 py-2 mt-4 rounded-full font-medium text-white border border-gray-800 bg-gray-800 hover:bg-gray-700">
-                      ↓ Download PDF
-                  </button>
-                </div>
-            `;
-
+    <div class="flex flex-row items-center justify-center gap-2">
+      <button id="editBtn" class="block w-fit btn btn-outline px-4 py-2 mt-4 rounded-full font-medium text-gray-600 border border-gray-300 bg-white hover:bg-gray-50">
+        ← Edit Responses
+      </button>
+      <button id="downloadPDFBtn" class="block w-fit btn btn-outline px-4 py-2 mt-4 rounded-full font-medium text-white border border-gray-800 bg-gray-800 hover:bg-gray-700">
+        ↓ Download PDF
+      </button>
+    </div>
+  `;
   elements.summary.innerHTML = summaryHTML;
 
+  // Event Listener for Edit Responses Button
   document.getElementById('editBtn').addEventListener('click', () => {
     elements.questionContainer.classList.remove('hidden');
     elements.summary.classList.remove('active');
     updateUI();
   });
 
+  setupPDFDownload();
+}
+
+// PDF Download Function
+function setupPDFDownload() {
   document.getElementById('downloadPDFBtn').addEventListener('click', () => {
-    const { jsPDF } = window.jspdf; // Access the jsPDF class from the library
+    const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
 
-    doc.setFont("helvetica");  // Set font to Helvetica
-    doc.setFontSize(12);  // Set font size
+    doc.setFont("helvetica");
+    doc.setFontSize(12);
 
-    let yOffset = 10;  // Starting Y position for text
-    const lineHeight = 10;  // Line height
-    const pageHeight = doc.internal.pageSize.height; // Height of the page
-    const marginBottom = 10; // Space to leave at the bottom of the page
+    let yOffset = 10;
+    const lineHeight = 10;
+    const pageHeight = doc.internal.pageSize.height;
+    const marginBottom = 10;
 
-    // Loop through each step and each question to generate the PDF content
     steps.forEach(step => {
       if (yOffset + lineHeight > pageHeight - marginBottom) {
-        doc.addPage(); // Add a new page if the current one is full
-        yOffset = 10; // Reset Y position to the top of the new page
+        doc.addPage();
+        yOffset = 10;
       }
       doc.text(step, 10, yOffset);
       yOffset += lineHeight;
 
-      questions[step].forEach(q => {
+      currentQuestionSet[step].forEach(q => {
         if (yOffset + lineHeight * 2 > pageHeight - marginBottom) {
-          doc.addPage(); // Add a new page if the current one is full
-          yOffset = 10; // Reset Y position
+          doc.addPage();
+          yOffset = 10;
         }
         const answer = answers[q.id] || 'Not answered';
         doc.text(`› ${q.question}`, 10, yOffset);
@@ -158,20 +192,20 @@ function showSummary() {
         yOffset += lineHeight;
       });
 
-      yOffset += lineHeight; // Add extra space after each step
+      yOffset += lineHeight;
     });
 
-    // Save the generated PDF
     doc.save('brand_summary.pdf');
   });
 }
 
+// Event Listeners for Navigation
 elements.nextBtn.addEventListener('click', () => {
   const step = steps[currentStep];
-  const question = questions[step][currentQuestion];
+  const question = currentQuestionSet[step][currentQuestion];
   answers[question.id] = elements.answerInput.value;
 
-  if (currentQuestion < questions[step].length - 1) {
+  if (currentQuestion < currentQuestionSet[step].length - 1) {
     currentQuestion++;
   } else if (currentStep < steps.length - 1) {
     currentStep++;
@@ -189,10 +223,22 @@ elements.prevBtn.addEventListener('click', () => {
     currentQuestion--;
   } else if (currentStep > 0) {
     currentStep--;
-    currentQuestion = questions[steps[currentStep]].length - 1;
+    currentQuestion = currentQuestionSet[steps[currentStep]].length - 1;
   }
-
   updateUI();
+});
+
+// Add Event Listeners for Mode Switching
+elements.complexMode.addEventListener('click', () => {
+  resetProcess(questions); // Reset with complex questions
+  elements.complexMode.classList.add('active');
+  elements.simplifiedMode.classList.remove('active');
+});
+
+elements.simplifiedMode.addEventListener('click', () => {
+  resetProcess(simplifiedQuestions); // Reset with simplified questions
+  elements.simplifiedMode.classList.add('active');
+  elements.complexMode.classList.remove('active');
 });
 
 // Initialize the UI
