@@ -1,4 +1,4 @@
-# Brand Strategy Builder App
+# Brand Strategy Builder App [Work in Progress]
 
 ## 🌟 Overview
 
