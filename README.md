@@ -37,7 +37,7 @@ Follow the steps below to clone and use this project locally.
 
 ### Step 1: Clone the Repository and Navigate to Project Folder
 
-First, clone the repository to your local machine by running the following command in your terminal:
+First, clone the repository to your local machine and navigate to project folder by running the following command in your terminal:
 
 ```bash
 git clone https://github.com/beingsie/brand-builder.git && cd brand-builder
