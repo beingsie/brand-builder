@@ -72,12 +72,33 @@ const elements = {
 // Simplified Questions Array
 const simplifiedQuestions = {
   'Discovery: Who Are You?': [
-    { id: 'uniqueValue', question: "What makes your brand unique?", hint: "What sets you apart from others?" },
-    { id: 'brandPurpose', question: "Why does your brand exist?", hint: "What need or purpose does it fulfill?" },
+    { id: 'uniqueQualities', question: "What sets your brand apart?" },
+    { id: 'brandSummary', question: "How would you describe your brand’s personality and purpose?" }
+  ],
+  'Definition: What\'s Your Story?': [
+    { id: 'originStory', question: "What’s the origin and mission of your brand?" },
+    { id: 'transformationPromise', question: "What transformation and emotions does your brand offer?" }
+  ],
+  'Audience & Persona Development': [
+    { id: 'biggestChallenge', question: "What’s your audience’s main need or challenge?" },
+    { id: 'dreamCustomer', question: "Who is your ideal customer and where do they engage?" }
+  ],
+  'Brand Messaging: What\'s Your Message?': [
+    { id: 'uniqueValueProposition', question: "What’s your brand’s unique benefit and story?" },
+    { id: 'brandVoice', question: "What tone and key phrases represent your brand?" }
   ],
   'Brand Identity: What Do You Look Like?': [
-    { id: 'visualStyle', question: "What should your brand’s visuals communicate?", hint: "Think about bold, elegant, or creative styles." },
+    { id: 'visualFeelings', question: "What emotions and colors should your visuals evoke?" },
+    { id: 'graphicElements', question: "What visuals and typography reflect your brand’s story?" }
   ],
+  'Implementation & Activation': [
+    { id: 'firstImpression', question: "How will you make your first impression and engage your audience?" },
+    { id: 'contentStrategies', question: "What content and tools will activate and maintain your brand consistency?" }
+  ],
+  'Measurement & Optimization': [
+    { id: 'successMetrics', question: "How will you measure brand success and gather feedback?" },
+    { id: 'brandReview', question: "How often will you review and evolve your brand?" }
+  ]
 };
 
 function resetProcess(newQuestionSet) {
