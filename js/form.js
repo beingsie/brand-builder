@@ -47,6 +47,53 @@ const questions = {
   ]
 };
 
+const personalPurposeJourney = {
+  'Discovery: Who Are You?': [
+    { id: 'uniqueQualities', question: "What unique qualities set you apart from others?", hint: "What strengths, talents, or experiences do you have that are distinct?" },
+    { id: 'personalExistence', question: "Why do you believe you exist beyond material success?", hint: "What deeper purpose or mission drives you?" },
+    { id: 'personalSummary', question: "How would you describe yourself in one sentence?", hint: "Summarize your essence, values, and personality in a concise statement." },
+    { id: 'personalPersonality', question: "If you were to describe your personality as a person, what would it be?", hint: "Are you curious, bold, nurturing, or something else?" }
+  ],
+  'Definition: What’s Your Story?': [
+    { id: 'originStory', question: "What is the 'why' behind your personal journey?", hint: "What pivotal moments or experiences shaped your path?" },
+    { id: 'transformationPromise', question: "What transformation do you want to offer the world?", hint: "How do you hope others will grow or change from knowing you?" },
+    { id: 'emotionalResponse', question: "What emotional impact do you want to have on others?", hint: "Do you aim to inspire, empower, comfort, or energize them?" },
+    { id: 'personalValues', question: "What values or principles guide your decisions and actions?", hint: "What core beliefs do you uphold consistently?" }
+  ],
+  'Audience & Community Development': [
+    { id: 'biggestChallenge', question: "What are the biggest challenges or desires of the people you want to impact?", hint: "What emotional or practical struggles do they face?" },
+    { id: 'dreamCommunity', question: "What does your ideal community or audience look like?", hint: "Define their values, interests, and the support they seek." },
+    { id: 'communityHangouts', question: "Where do the people you want to connect with spend their time?", hint: "Identify spaces, platforms, or events where they gather." },
+    { id: 'desiredConnection', question: "How do you want others to feel when they connect with you?", hint: "What emotional connection—trust, inspiration, or belonging—do you want to foster?" },
+    { id: 'roleModels', question: "Who do you admire or resonate with?", hint: "Consider people whose journeys or values inspire your own path." }
+  ],
+  'Personal Messaging: What’s Your Message?': [
+    { id: 'uniqueValueProposition', question: "What unique value do you offer to others?", hint: "What specific strengths or perspectives make you impactful?" },
+    { id: 'personalStory', question: "What core story encapsulates your journey and purpose?", hint: "How does your narrative reflect your mission and values?" },
+    { id: 'personalVoice', question: "What is the tone and voice of your message?", hint: "Is your communication style empathetic, confident, or expressive?" },
+    { id: 'keyAffirmations', question: "What affirmations or messages define your personal brand?", hint: "Craft key statements that reflect your values and aspirations." },
+    { id: 'addressedPainPoints', question: "What struggles or desires do you address through your story?", hint: "How can your message resonate with others’ needs?" }
+  ],
+  'Personal Identity: How Do You Present Yourself?': [
+    { id: 'emotionalFeelings', question: "What feelings should your presence evoke?", hint: "Do you aim to inspire calm, excitement, confidence, or warmth?" },
+    { id: 'personalColors', question: "What colors represent your personality and values?", hint: "Consider the psychological impact of each color and its alignment with your journey." },
+    { id: 'styleElements', question: "What style or imagery best expresses who you are?", hint: "Think about visuals, patterns, or symbols that reflect your story." },
+    { id: 'consistentExpression', question: "How will you maintain a cohesive personal image?", hint: "Ensure your style and message align across different settings and platforms." }
+  ],
+  'Activation & Implementation: Living Your Purpose': [
+    { id: 'firstImpression', question: "What first impression do you want to leave on others?", hint: "How will you introduce yourself or your story in impactful ways?" },
+    { id: 'journeyMap', question: "What is the journey you want others to experience with you?", hint: "How do you envision others discovering, connecting, and growing with your purpose?" },
+    { id: 'contentStrategies', question: "How will you share your story and insights?", hint: "Will you focus on writing, speaking, social media, or personal interactions?" },
+    { id: 'consistencyTools', question: "What tools or habits will keep you aligned with your purpose?", hint: "Create systems to ensure you stay true to your values and mission." }
+  ],
+  'Reflection & Growth': [
+    { id: 'successMetrics', question: "How will you measure personal growth and impact?", hint: "Track emotional fulfillment, relationships, and milestones achieved." },
+    { id: 'feedbackLoops', question: "How will you gather and use feedback for personal growth?", hint: "Regularly reflect on feedback from trusted friends, mentors, or community members." },
+    { id: 'strategyReview', question: "How often will you revisit your goals and purpose?", hint: "Set a schedule to review and adjust your plans as you evolve." },
+    { id: 'futureEvolution', question: "What areas of your journey might evolve over time?", hint: "Identify which aspects of your purpose or expression may change with growth." }
+  ]
+};
+
 // Default to complex questions initially
 let currentQuestionSet = questions;
 let currentStep = 0;
@@ -67,6 +114,7 @@ const elements = {
   summary: document.getElementById('summary'),
   complexMode: document.getElementById('complexMode'), // For mode switching
   simplifiedMode: document.getElementById('simplifiedMode'), // For mode switching
+  purposeMode: document.getElementById('purposeMode'), // For mode switching
 };
 
 // Simplified Questions Array
@@ -259,6 +307,13 @@ elements.complexMode.addEventListener('click', () => {
 elements.simplifiedMode.addEventListener('click', () => {
   resetProcess(simplifiedQuestions); // Reset with simplified questions
   elements.simplifiedMode.classList.add('active');
+  elements.complexMode.classList.remove('active');
+});
+
+elements.purposeMode.addEventListener('click', () => {
+  resetProcess(personalPurposeJourney); // Reset with simplified questions
+  elements.purposeMode.classList.add('active');
+  elements.simplifiedMode.classList.remove('active');
   elements.complexMode.classList.remove('active');
 });
 
